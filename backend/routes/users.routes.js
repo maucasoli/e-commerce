@@ -27,7 +27,7 @@ router.get('/me', verifyToken, async (req, res) => {
 // ✍️ PUT /:id — modifier utilisateur (admin ou propriétaire)
 router.put('/:id', verifyToken, async (req, res) => {
   const { id } = req.params;
-  const { nom, actif } = req.body;
+  const { nom, email, actif } = req.body;
 
   // Seul admin ou propriétaire du compte peut modifier
   if (req.user.role !== 'administrateur' && req.user.id != id) {
@@ -36,8 +36,8 @@ router.put('/:id', verifyToken, async (req, res) => {
 
   try {
     await db.query(
-      'UPDATE users SET nom = ?, actif = ? WHERE id = ?',
-      [nom, actif, id]
+      'UPDATE users SET nom = ?, email = ?, actif = ? WHERE id = ?',
+      [nom, email, actif, id]
     );
     res.json({ message: 'Utilisateur mis à jour' });
   } catch (error) {

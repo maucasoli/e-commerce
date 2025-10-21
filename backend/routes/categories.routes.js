@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 /**
  * 📌 POST /api/categories — création (editeur/gestionnaire)
  */
-router.post('/', verifyToken, authorizeRole(['editeur', 'gestionnaire']), async (req, res) => {
+router.post('/', verifyToken, authorizeRole(['editeur', 'gestionnaire', 'administrateur']), async (req, res) => {
   try {
     const { nom, description } = req.body;
     const [result] = await db.query(
@@ -38,7 +38,7 @@ router.post('/', verifyToken, authorizeRole(['editeur', 'gestionnaire']), async 
 /**
  * 📌 PUT /api/categories/:id — mise à jour
  */
-router.put('/:id', verifyToken, authorizeRole(['editeur', 'gestionnaire']), async (req, res) => {
+router.put('/:id', verifyToken, authorizeRole(['editeur', 'gestionnaire', 'administrateur']), async (req, res) => {
   try {
     const { id } = req.params;
     const { nom, description } = req.body;
@@ -56,7 +56,7 @@ router.put('/:id', verifyToken, authorizeRole(['editeur', 'gestionnaire']), asyn
 /**
  * 📌 DELETE /api/categories/:id — suppression
  */
-router.delete('/:id', verifyToken, authorizeRole(['editeur', 'gestionnaire']), async (req, res) => {
+router.delete('/:id', verifyToken, authorizeRole(['editeur', 'gestionnaire', 'administrateur']), async (req, res) => {
   try {
     const { id } = req.params;
     await db.query(`DELETE FROM categories WHERE id = ?`, [id]);

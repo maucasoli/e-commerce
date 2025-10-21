@@ -10,6 +10,7 @@ import panierRouter from './routes/panier.routes.js';
 import commandesRouter from './routes/commandes.routes.js';
 import ouvragesRouter from './routes/ouvrages.routes.js';
 import categoriesRouter from './routes/categories.routes.js';
+import listesRouter from './routes/listes.routes.js';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use('/api/panier', panierRouter);
 app.use('/api/commandes', commandesRouter);
 app.use('/api/ouvrages', ouvragesRouter);
 app.use('/api/categories', categoriesRouter);
+app.use('/api/listes', listesRouter);
 
 // ⚠️ 404 - Route non trouvée
 app.use((req, res) => {
