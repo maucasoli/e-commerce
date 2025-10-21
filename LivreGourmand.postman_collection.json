@@ -753,7 +753,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJtYXVyaWNpb0BlbWFpbC5jb20iLCJpYXQiOjE3NjEwNjgxMjYsImV4cCI6MTc2MTA3NTMyNn0.zyyoRE5j8Wom-up_qehLvE3exqO4q_kGD8x3BLKgdd4",
 								"type": "text"
 							}
 						],
@@ -961,28 +961,26 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/listes/GLZ6hsusR1",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/listes/r719sX4O",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"listes",
-								"GLZ6hsusR1"
+								"r719sX4O"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create Liste",
+					"name": "Create",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1023,7 +1021,7 @@
 					"response": []
 				},
 				{
-					"name": "Insert",
+					"name": "Acheter",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1034,13 +1032,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJtYXVyaWNpb0BlbWFpbC5jb20iLCJpYXQiOjE3NjEwNjgxMjYsImV4cCI6MTc2MTA3NTMyNn0.zyyoRE5j8Wom-up_qehLvE3exqO4q_kGD8x3BLKgdd4",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nom\":\"Liste Mauricio2\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1048,7 +1046,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/listes/6/items",
+							"raw": "http://localhost:3000/api/listes/r719sX4O",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1057,49 +1055,7 @@
 							"path": [
 								"api",
 								"listes",
-								"6",
-								"items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre updated\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/11",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"ouvrages",
-								"11"
+								"r719sX4O"
 							]
 						}
 					},
