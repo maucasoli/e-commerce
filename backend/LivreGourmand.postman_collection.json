@@ -16,13 +16,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 									"});",
 									""
-								]
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -31,7 +33,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+							"raw": "{\n\t\"nom\":\"Utilisateur\",\n    \"email\":\"user@example.com\",\n    \"password\":\"user123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -39,12 +41,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/info",
+							"raw": "{{baseUrl}}/api/auth/register",
 							"host": [
-								"{{base_url}}"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"info"
+								"api",
+								"auth",
+								"register"
 							]
 						},
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
@@ -57,13 +61,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 									"});",
 									""
-								]
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -72,7 +78,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+							"raw": "{\n\t\"email\":\"admin@example.com\",\n    \"password\":\"admin123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,12 +86,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/info",
+							"raw": "{{baseUrl}}/api/auth/login",
 							"host": [
-								"{{base_url}}"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"info"
+								"api",
+								"auth",
+								"login"
 							]
 						},
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
@@ -109,17 +117,15 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/users/me",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users/me",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
@@ -141,17 +147,15 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/users/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
@@ -188,13 +192,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"id\": 3,\r\n        \"nom\": \"user\",\r\n        \"email\": \"user@email.com\",\r\n        \"role\": \"client\",\r\n        \"actif\": 1,\r\n        \"created_at\": \"2025-10-21T15:16:53.000Z\"\r\n    }",
+							"raw": "    {\r\n        \"id\": 2,\r\n        \"nom\": \"User\",\r\n        \"email\": \"user@example.com\",\r\n        \"role\": \"client\",\r\n        \"actif\": 1,\r\n        \"created_at\": \"2025-10-24T21:46:03.000Z\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -202,16 +206,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/users/3",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/users/2",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"users",
-								"3"
+								"2"
 							]
 						},
 						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
@@ -235,7 +237,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							},
 							{
@@ -246,12 +248,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/categories/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/categories/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"categories",
@@ -273,13 +273,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "    {\r\n        \"nom\": \"category_test\",\r\n        \"description\": \"desc\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -287,15 +287,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/categories/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
+								"categories",
 								""
 							]
 						}
@@ -314,13 +312,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"nom\": \"New category updated\",\r\n        \"description\": \"Testing\"\r\n    }",
+							"raw": "    {\r\n        \"nom\": \"category_test2\",\r\n        \"description\": \"desc2\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -328,15 +326,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/4",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/categories/4",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
+								"categories",
 								"4"
 							]
 						}
@@ -355,13 +351,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -369,12 +365,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/categories/4",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/categories/4",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"categories",
@@ -401,21 +395,19 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/6",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -433,17 +425,15 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
@@ -465,13 +455,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "    {\r\n        \"titre\": \"test\",\r\n        \"auteur\": \"test\",\r\n        \"isbn\": \"9782070612123\",\r\n        \"description\": \"test\",\r\n        \"prix\": \"12.99\",\r\n        \"stock\": 50,\r\n        \"categorie_id\": 1\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -479,12 +469,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
@@ -506,13 +494,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre updated\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "    {\r\n        \"titre\": \"test2\",\r\n        \"auteur\": \"test2\",\r\n        \"isbn\": \"9782070612123\",\r\n        \"description\": \"test2\",\r\n        \"prix\": \"12.99\",\r\n        \"stock\": 50,\r\n        \"categorie_id\": 1\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -520,16 +508,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/11",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/6",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
-								"11"
+								"6"
 							]
 						}
 					},
@@ -547,7 +533,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -561,16 +547,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/11",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/6",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
-								"11"
+								"6"
 							]
 						}
 					},
