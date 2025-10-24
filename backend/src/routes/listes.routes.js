@@ -27,7 +27,7 @@ router.get("/:code", verifyToken, getListeByCode);
 router.post("/:code", 
   verifyToken, 
   body("items")
-    .isArray({ min: 1 }).withMessage("La liste d'items ne peut pas être vide"),
+    .optional().isArray({ min: 1 }).withMessage("La liste d'items ne peut pas être vide"),
   body("items.*.ouvrage_id")
     .isInt({ gt: 0 }).withMessage("ID d'ouvrage invalide"),
   body("items.*.quantite_souhaitee")

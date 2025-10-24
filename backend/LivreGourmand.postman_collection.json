@@ -577,17 +577,15 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/panier/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/panier/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"panier",
@@ -609,13 +607,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "{\r\n    \"ouvrage_id\":1,\r\n    \"quantite\":2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -623,16 +621,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/panier/items",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
-								""
+								"panier",
+								"items"
 							]
 						}
 					},
@@ -650,13 +646,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre updated\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "    {\r\n        \"panier_item_id\": 1,\r\n        \"ouvrage_id\": 1,\r\n        \"quantite\": 5\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -664,16 +660,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/11",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/panier/items/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
-								"11"
+								"panier",
+								"items",
+								"1"
 							]
 						}
 					},
@@ -691,7 +686,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -705,16 +700,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/11",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/panier/items/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
-								"11"
+								"panier",
+								"items",
+								"1"
 							]
 						}
 					},
@@ -737,17 +731,15 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJtYXVyaWNpb0BlbWFpbC5jb20iLCJpYXQiOjE3NjEwNjgxMjYsImV4cCI6MTc2MTA3NTMyNn0.zyyoRE5j8Wom-up_qehLvE3exqO4q_kGD8x3BLKgdd4",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/commandes/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/commandes/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"commandes",
@@ -769,13 +761,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -783,15 +775,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/commandes/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
+								"commandes",
 								""
 							]
 						}
@@ -810,13 +800,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre updated\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "    {\r\n        \"client_id\": 1,\r\n        \"date\": \"2025-10-24T22:22:02.000Z\",\r\n        \"total\": \"0.00\",\r\n        \"statut\": \"payee\",\r\n        \"adresse_livraison\": null,\r\n        \"mode_livraison\": null,\r\n        \"mode_paiement\": null,\r\n        \"payment_provider_id\": null\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -824,16 +814,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/11",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/commandes/1/status",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
-								"ouvrages",
-								"11"
+								"commandes",
+								"1",
+								"status"
 							]
 						}
 					},
@@ -856,13 +845,13 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titre\": \"Titre\",\r\n    \"auteur\": \"Mauricio\",\r\n    \"isbn\": \"9782070612999\",\r\n    \"description\": \"Example de description\",\r\n    \"prix\": \"14.99\",\r\n    \"stock\": 10,\r\n    \"categorie_id\": 2\r\n}",
+							"raw": "{\r\n    \"ouvrage_id\":1,\r\n    \"note\":\"5\",\r\n    \"commentaire\":\"Nice book\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -870,16 +859,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/1/avis",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
-								""
+								"1",
+								"avis"
 							]
 						}
 					},
@@ -897,7 +885,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -911,16 +899,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/ouvrages/6/avis/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/ouvrages/1/avis/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"ouvrages",
-								"6",
+								"1",
 								"avis",
 								""
 							]
@@ -933,6 +919,45 @@
 		{
 			"name": "Listes (cadeux)",
 			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nom\": \"Liste Mauricio\",\r\n  \"items\": [\r\n    { \"ouvrage_id\": 1, \"quantite_souhaitee\": 2 },\r\n    { \"ouvrage_id\": 3, \"quantite_souhaitee\": 1 }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/listes/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"listes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Read",
 					"request": {
@@ -950,55 +975,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/listes/r719sX4O",
+							"raw": "{{baseUrl}}/api/listes/qNmtEwo2",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"listes",
-								"r719sX4O"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJhQGIuY29tIiwiaWF0IjoxNzYxMDU5ODUyLCJleHAiOjE3NjEwNjcwNTJ9.SwRXmFqu_Dwx9_LWVcYpTLcZbPqSn4W13JVbwQf_QA8",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nom\":\"Liste Mauricio2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/api/listes/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"api",
-								"listes",
-								""
+								"qNmtEwo2"
 							]
 						}
 					},
@@ -1016,7 +1000,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluaXN0cmF0ZXVyIiwiZW1haWwiOiJtYXVyaWNpb0BlbWFpbC5jb20iLCJpYXQiOjE3NjEwNjgxMjYsImV4cCI6MTc2MTA3NTMyNn0.zyyoRE5j8Wom-up_qehLvE3exqO4q_kGD8x3BLKgdd4",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -1030,16 +1014,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/listes/r719sX4O",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/listes/qNmtEwo2",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"listes",
-								"r719sX4O"
+								"qNmtEwo2"
 							]
 						}
 					},

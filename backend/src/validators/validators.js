@@ -28,12 +28,12 @@ export const createCategoryValidator = [
 
 // ----------------- Commandes -----------------
 export const createCommandeValidator = [
-  body('items')
-    .isArray({ min: 1 }).withMessage('La commande doit contenir au moins un item'),
-  body('items.*.ouvrage_id')
-    .isInt({ gt: 0 }).withMessage('ID d\'ouvrage invalide'),
-  body('items.*.quantite')
-    .isInt({ gt: 0 }).withMessage('Quantité invalide')
+  // body('items')
+  //   .isArray({ min: 1 }).withMessage('La commande doit contenir au moins un item'),
+  // body('items.*.ouvrage_id')
+  //   .isInt({ gt: 0 }).withMessage('ID d\'ouvrage invalide'),
+  // body('items.*.quantite')
+  //   .isInt({ gt: 0 }).withMessage('Quantité invalide')
 ];
 
 // ----------------- Listes -----------------
