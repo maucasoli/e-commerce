@@ -30,12 +30,16 @@ export default function ChatBox() {
 
       // Change loading
       setMessages((prev) =>
-        prev.map((m) => (m === loadingMessage ? { from: "ai", text: reply } : m))
+        prev.map((m) =>
+          m === loadingMessage ? { from: "ai", text: reply } : m
+        )
       );
     } catch (err) {
       console.error("Error:", err);
       setMessages((prev) =>
-        prev.map((m) => (m === loadingMessage ? { from: "ai", text: "Error" } : m))
+        prev.map((m) =>
+          m === loadingMessage ? { from: "ai", text: "Error" } : m
+        )
       );
     }
   };
@@ -64,8 +68,8 @@ export default function ChatBox() {
       {/* Header */}
       <div
         style={{
-          background: "#007bff",
-          color: "#fff",
+          background: "#0056b3",
+          color: "#ffffff",
           padding: "8px 10px",
           display: "flex",
           justifyContent: "space-between",
@@ -79,11 +83,12 @@ export default function ChatBox() {
           style={{
             background: "transparent",
             border: "none",
-            color: "#fff",
+            color: "#ffffff",
             fontWeight: "bold",
             fontSize: "16px",
             cursor: "pointer",
           }}
+          aria-label={isOpen ? "Fermer chat" : "Ouvrir chat"}
         >
           {isOpen ? "−" : "+"}
         </button>
@@ -116,7 +121,7 @@ export default function ChatBox() {
                     display: "inline-block",
                     maxWidth: "80%",
                     wordBreak: "break-word",
-                    fontStyle: m.text === "Pensando..." ? "italic" : "normal",
+                    fontStyle: m.text === "Thinking..." ? "italic" : "normal",
                   }}
                 >
                   {m.text}
@@ -131,7 +136,12 @@ export default function ChatBox() {
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              style={{ flex: 1, padding: "8px", border: "none", resize: "none" }}
+              style={{
+                flex: 1,
+                padding: "8px",
+                border: "none",
+                resize: "none",
+              }}
               placeholder="Saisir un message..."
               onKeyDown={handleKeyDown}
               rows={1}

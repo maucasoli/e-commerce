@@ -38,7 +38,7 @@ export default function Home() {
         if (selectedCategory) {
           params.categorie = selectedCategory;
         }
-        
+
         const productsData = await listOuvrages(params);
 
         if (Array.isArray(productsData)) {
@@ -67,27 +67,53 @@ export default function Home() {
   return (
     <div className="container">
       {/* Carrousel */}
-      <div id="carouselExample" className="carousel slide mb-4" data-bs-ride="carousel">
+      <div
+        id="carouselExample"
+        className="carousel slide mb-4"
+        data-bs-ride="carousel"
+      >
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <div className="bg-primary text-white p-5 text-center rounded" style={{ minHeight: '200px' }}>
+            <div
+              className="bg-primary text-white p-5 text-center rounded"
+              style={{ minHeight: "200px" }}
+            >
               <h2>Bienvenue sur LivresGourmands.net</h2>
               <p className="lead">Découvrez notre sélection de livres</p>
             </div>
           </div>
           <div className="carousel-item">
-            <div className="bg-success text-white p-5 text-center rounded" style={{ minHeight: '200px' }}>
+            <div
+              className="bg-success text-white p-5 text-center rounded"
+              style={{ minHeight: "200px" }}
+            >
               <h2>Livres pour tous les goûts</h2>
               <p className="lead">Explorez nos différentes catégories</p>
             </div>
           </div>
         </div>
-        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span
+            className="carousel-control-prev-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Previous</span>
         </button>
-        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span
+            className="carousel-control-next-icon"
+            aria-hidden="true"
+          ></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>
@@ -97,18 +123,27 @@ export default function Home() {
         <div className="card-body">
           <h5 className="card-title">Recherche simple</h5>
           <div className="row g-3">
+            {/* Input de recherche */}
             <div className="col-md-6">
-              <label className="form-label">Titre, auteur ou ISBN</label>
+              <label htmlFor="searchInput" className="form-label">
+                Titre, auteur ou ISBN
+              </label>
               <input
+                id="searchInput"
                 className="form-control"
                 placeholder="Rechercher par titre, auteur ou ISBN..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
+
+            {/* Select de catégories */}
             <div className="col-md-6">
-              <label className="form-label">Catégorie</label>
+              <label htmlFor="categorySelect" className="form-label">
+                Catégorie
+              </label>
               <select
+                id="categorySelect"
                 className="form-select"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -122,6 +157,8 @@ export default function Home() {
               </select>
             </div>
           </div>
+
+          {/* Recherche avancee */}
           <div className="mt-3">
             <Link to="/recherche-avancee" className="btn btn-outline-primary">
               Recherche avancée
@@ -132,10 +169,13 @@ export default function Home() {
 
       {/* Résultats */}
       <h2 className="mb-3">
-        {search || selectedCategory ? "Résultats de la recherche" : "Nos ouvrages"}
+        {search || selectedCategory
+          ? "Résultats de la recherche"
+          : "Nos ouvrages"}
       </h2>
       <p className="text-muted mb-3">
-        Cliquer sur une image pour accéder à la description détaillée de l'ouvrage et commander
+        Cliquer sur une image pour accéder à la description détaillée de
+        l'ouvrage et commander
       </p>
 
       {loading ? (

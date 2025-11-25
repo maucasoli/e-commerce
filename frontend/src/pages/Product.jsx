@@ -118,7 +118,7 @@ export default function Product() {
 
           <div className="card mb-3">
             <div className="card-body">
-              <h5 className="card-title">Informations</h5>
+              <h6 className="card-title">Informations</h6>
               <table className="table table-borderless mb-0">
                 <tbody>
                   {product.isbn && (

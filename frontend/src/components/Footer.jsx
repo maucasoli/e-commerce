@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <h6>Informations</h6>
+            <h3>Informations</h3>
             <ul className="list-unstyled">
               <li>
                 <a href="#" className="text-decoration-none text-muted">
@@ -31,7 +31,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="col-md-6">
-            <h6>Contacts</h6>
+            <h3>Contacts</h3>
             <ul className="list-unstyled">
               <li className="text-muted">Email: contact@livresgourmands.net</li>
               <li className="text-muted">Téléphone: +1 866-345-6053</li>
