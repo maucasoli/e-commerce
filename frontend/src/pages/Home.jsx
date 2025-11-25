@@ -73,22 +73,52 @@ export default function Home() {
         data-bs-ride="carousel"
       >
         <div className="carousel-inner">
-          <div className="carousel-item active">
+          <div className="carousel-item active" data-bs-interval="5000">
             <div
-              className="bg-primary text-white p-5 text-center rounded"
-              style={{ minHeight: "200px" }}
+              className="text-white p-5 text-center rounded d-flex flex-column justify-content-center align-items-center"
+              style={{
+                minHeight: "300px",
+                background: "linear-gradient(135deg, var(--primary-color) 0%, #4a0012 100%)"
+              }}
             >
-              <h2>Bienvenue sur LivresGourmands.net</h2>
-              <p className="lead">Découvrez notre sélection de livres</p>
+              <h2 className="display-4 fw-bold mb-3">Bienvenue sur LivresGourmands</h2>
+              <p className="lead fs-4">Découvrez notre sélection de livres culinaires d'exception</p>
             </div>
           </div>
-          <div className="carousel-item">
+          <div className="carousel-item" data-bs-interval="5000">
             <div
-              className="bg-success text-white p-5 text-center rounded"
-              style={{ minHeight: "200px" }}
+              className="text-white p-5 text-center rounded d-flex flex-column justify-content-center align-items-center"
+              style={{
+                minHeight: "300px",
+                background: "linear-gradient(135deg, #2c3e50 0%, #000000 100%)"
+              }}
             >
-              <h2>Livres pour tous les goûts</h2>
-              <p className="lead">Explorez nos différentes catégories</p>
+              <h2 className="display-4 fw-bold mb-3">Une Passion pour le Goût</h2>
+              <p className="lead fs-4">Explorez nos collections pour tous les gourmets</p>
+            </div>
+          </div>
+          <div className="carousel-item" data-bs-interval="5000">
+            <div
+              className="text-white p-5 text-center rounded d-flex flex-column justify-content-center align-items-center"
+              style={{
+                minHeight: "300px",
+                background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)"
+              }}
+            >
+              <h2 className="display-4 fw-bold mb-3">Recettes du Monde</h2>
+              <p className="lead fs-4">Voyagez à travers les saveurs internationales</p>
+            </div>
+          </div>
+          <div className="carousel-item" data-bs-interval="5000">
+            <div
+              className="text-white p-5 text-center rounded d-flex flex-column justify-content-center align-items-center"
+              style={{
+                minHeight: "300px",
+                background: "linear-gradient(135deg, #11998e 0%, #38ef7d 100%)"
+              }}
+            >
+              <h2 className="display-4 fw-bold mb-3">Cuisine Saine & Bio</h2>
+              <p className="lead fs-4">Prenez soin de vous avec nos livres dédiés</p>
             </div>
           </div>
         </div>
@@ -98,10 +128,7 @@ export default function Home() {
           data-bs-target="#carouselExample"
           data-bs-slide="prev"
         >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Previous</span>
         </button>
         <button
@@ -110,10 +137,7 @@ export default function Home() {
           data-bs-target="#carouselExample"
           data-bs-slide="next"
         >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="visually-hidden">Next</span>
         </button>
       </div>

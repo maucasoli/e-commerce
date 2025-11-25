@@ -1,8 +1,109 @@
-body {
-  padding-top: 70px;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;600;700&display=swap');
+
+:root {
+  --primary-color: #800020; /* Burgundy */
+  --secondary-color: #F5F5DC; /* Beige/Cream */
+  --accent-color: #D4AF37; /* Gold */
+  --text-color: #333333;
+  --bg-color: #FAFAFA;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  padding-top: 76px; /* Match header height */
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Navbar Overrides */
+.navbar {
+  background-color: #fff !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+  color: var(--primary-color) !important;
+  font-size: 1.8rem;
+}
+
+.nav-link {
+  color: var(--text-color) !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--primary-color) !important;
+}
+
+/* Button Overrides */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-radius: 30px;
+  padding: 0.5rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #600018;
+  border-color: #600018;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(128, 0, 32, 0.3);
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-radius: 30px;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Card Overrides */
+.card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--hover-shadow);
+}
+
 .product-image {
   width: 100%;
   height: 320px;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
+
+.card:hover .product-image {
+  transform: scale(1.05);
+}
+
+/* Form Controls */
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(128, 0, 32, 0.25);
+}
+
+/* Footer helper */
+footer {
+  background-color: #2c2c2c;
+  color: #fff;
+}
+

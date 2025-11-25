@@ -65,7 +65,7 @@ export const getListeByCode = async (req, res) => {
       return res.status(404).json({ message: "Liste introuvable" });
 
     const [items] = await db.query(
-      `SELECT li.id, li.ouvrage_id, li.quantite_souhaitee, o.titre, o.prix
+      `SELECT li.id, li.ouvrage_id, li.quantite_souhaitee, li.quantite_achetee, o.titre, o.auteur, o.prix
        FROM liste_items li
        JOIN ouvrages o ON li.ouvrage_id = o.id
        WHERE li.liste_id = ?`,
@@ -81,6 +81,7 @@ export const getListeByCode = async (req, res) => {
 
 export const acheterDepuisListe = async (req, res) => {
   const { code } = req.params;
+  const { items: itemsToBuy } = req.body; // itemsToBuy: [{ ouvrage_id, quantite_souhaitee }]
 
   try {
     const [liste] = await db.query(
@@ -93,34 +94,51 @@ export const acheterDepuisListe = async (req, res) => {
 
     const listeId = liste[0].id;
 
-    const [items] = await db.query(
-      `SELECT ouvrage_id, quantite_souhaitee FROM liste_items WHERE liste_id = ?`,
-      [listeId]
-    );
+    if (!itemsToBuy || itemsToBuy.length === 0)
+      return res.status(400).json({ message: "Aucun article sélectionné" });
 
-    if (items.length === 0)
-      return res.status(400).json({ message: "Liste vide" });
-
+    // Créer la commande
     const [commandeResult] = await db.query(
       `INSERT INTO commandes (client_id, statut, date, created_at)
        VALUES (?, 'en_cours', NOW(), NOW())`,
       [req.user.id]
     );
     const commandeId = commandeResult.insertId;
+    let total = 0;
 
-    for (const item of items) {
+    for (const item of itemsToBuy) {
+      // Récupérer prix
+      const [ouvrageRows] = await db.query(
+        `SELECT prix FROM ouvrages WHERE id = ?`,
+        [item.ouvrage_id]
+      );
+      const prix = ouvrageRows[0]?.prix || 0;
+      total += prix * item.quantite_souhaitee;
+
+      // Ajouter à la commande
       await db.query(
         `INSERT INTO commande_items (commande_id, ouvrage_id, quantite, prix_unitaire, created_at)
-         SELECT ?, id, ?, prix, NOW() FROM ouvrages WHERE id = ?`,
-        [commandeId, item.quantite_souhaitee, item.ouvrage_id]
+         VALUES (?, ?, ?, ?, NOW())`,
+        [commandeId, item.ouvrage_id, item.quantite_souhaitee, prix]
+      );
+
+      // Mettre à jour la quantité achetée dans la liste
+      await db.query(
+        `UPDATE liste_items SET quantite_achetee = quantite_achetee + ? 
+         WHERE liste_id = ? AND ouvrage_id = ?`,
+        [item.quantite_souhaitee, listeId, item.ouvrage_id]
       );
     }
 
-    const paymentUrl = `https://paiement.simulation.com/commande/${commandeId}`;
+    // Mettre à jour total commande
+    await db.query(
+      `UPDATE commandes SET total = ? WHERE id = ?`,
+      [total, commandeId]
+    );
+
     res.status(201).json({
       message: "Commande créée depuis la liste",
       commandeId,
-      paymentUrl,
     });
   } catch (err) {
     console.error(err);

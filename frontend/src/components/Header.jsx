@@ -10,10 +10,10 @@ export default function Header() {
   const total = items.reduce((s, i) => s + (i.price * i.qty || 0), 0);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+    <nav className="navbar navbar-expand-lg fixed-top shadow-sm">
       <div className="container">
         <h1 className="navbar-brand fw-bold m-0">
-          <Link to="/" className="text-decoration-none text-dark">
+          <Link to="/" className="text-decoration-none">
             LivresGourmands
           </Link>
         </h1>

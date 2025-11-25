@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { CartContext } from '../context/CartContext'
 import { AuthContext } from '../context/AuthContext'
-import { createCommande } from '../services/commandeService'
+import { createCommande, getCommandeById } from '../services/commandeService'
 import { createPaymentIntent, confirmPayment } from '../services/paymentService'
 
 // Inicializar Stripe (usar variável de ambiente ou placeholder)
@@ -105,15 +105,18 @@ function CheckoutForm({ commandeId, total, onSuccess }) {
         {loading ? 'Traitement en cours...' : `Payer ${total.toFixed(2)} $`}
       </button>
       <p className="text-muted mt-3 small">
-        <strong>Mode test:</strong> Utilisez la carte 4242 4242 4242 4242, n'importe quelle date future, n'importe quel CVC
+        <strong>Card test (succès):</strong> Utilisez la carte 4242 4242 4242 4242, n'importe quelle date future, n'importe quel CVC
+      </p>
+      <p className="text-muted mt-3 small">
+        <strong>Card test (refusé):</strong> Utilisez la carte 4000 0000 0000 0002
       </p>
     </form>
   )
 }
 
-// Componente principal de Checkout
+// Component principal
 export default function Checkout() {
-  const { items, total, syncCart, clear } = useContext(CartContext)
+  const { items: cartItems, total: cartTotal, syncCart, clear } = useContext(CartContext)
   const { user } = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
   const [commandeId, setCommandeId] = useState(null)
@@ -122,31 +125,68 @@ export default function Checkout() {
     adresse: '',
     mode: 'standard'
   })
+
+  // New state for direct checkout
+  const [searchParams] = useSearchParams()
+  const urlCommandeId = searchParams.get('commandeId')
+  const [directItems, setDirectItems] = useState([])
+  const [directTotal, setDirectTotal] = useState(0)
+
   const nav = useNavigate()
+
+  // Determine which items/total to use
+  const displayItems = urlCommandeId ? directItems : cartItems
+  const displayTotal = urlCommandeId ? directTotal : cartTotal
 
   useEffect(() => {
     if (!user) {
       nav('/login')
       return
     }
-    if (items.length === 0) {
-      nav('/cart')
-      return
+
+    const fetchDirectOrder = async () => {
+      if (urlCommandeId) {
+        try {
+          setLoading(true)
+          const data = await getCommandeById(urlCommandeId)
+          // Transform items to match display format if needed
+          const mappedItems = data.items.map(i => ({
+            id: i.id, // or i.ouvrage_id depending on what we need
+            title: i.titre,
+            qty: i.quantite,
+            price: Number(i.prix_unitaire)
+          }))
+          setDirectItems(mappedItems)
+          setDirectTotal(Number(data.commande.total))
+        } catch (e) {
+          setError("Erreur lors du chargement de la commande")
+        } finally {
+          setLoading(false)
+        }
+      } else if (cartItems.length === 0) {
+        nav('/cart')
+      }
     }
-  }, [user, items, nav])
+
+    fetchDirectOrder()
+  }, [user, cartItems, nav, urlCommandeId])
 
   const handleCreateCommande = async () => {
     try {
       setLoading(true)
       setError(null)
 
-      // Sincronizar carrinho com o servidor antes de criar a commande
-      await syncCart()
-
-      // Criar a commande (o backend cria do panier, mas podemos passar dados adicionais depois)
-      const res = await createCommande({})
-      setCommandeId(res.commandeId)
-      // TODO: Atualizar commande com adresse_livraison e mode_livraison se necessário
+      if (urlCommandeId) {
+        // Direct checkout: just proceed to payment
+        setCommandeId(urlCommandeId)
+        // TODO: Update order with address if API supported it
+      } else {
+        // Normal cart checkout
+        await syncCart()
+        const res = await createCommande({})
+        setCommandeId(res.commandeId)
+        // TODO: Update order with address and mode
+      }
     } catch (e) {
       setError(e?.response?.data?.message || 'Erreur lors de la création de la commande')
       setLoading(false)
@@ -156,7 +196,9 @@ export default function Checkout() {
   }
 
   const handlePaymentSuccess = () => {
-    clear()
+    if (!urlCommandeId) {
+      clear() // Only clear cart if it was a cart checkout
+    }
     nav('/commandes')
   }
 
@@ -166,7 +208,7 @@ export default function Checkout() {
         <div className="row justify-content-center">
           <div className="col-12 col-md-10">
             <h2 className="mb-4">Choix des modes de livraison et de règlement</h2>
-            
+
             <div className="row g-4">
               <div className="col-md-8">
                 {/* Livraison */}
@@ -207,7 +249,7 @@ export default function Checkout() {
                   </div>
                   <div className="card-body">
                     <ul className="list-group list-group-flush">
-                      {items.map(item => (
+                      {displayItems.map(item => (
                         <li key={item.id} className="list-group-item d-flex justify-content-between">
                           <span>{item.title} x {item.qty}</span>
                           <strong>{(item.price * item.qty).toFixed(2)} $</strong>
@@ -215,7 +257,7 @@ export default function Checkout() {
                       ))}
                       <li className="list-group-item d-flex justify-content-between">
                         <strong>Total TTC:</strong>
-                        <strong className="text-primary fs-5">{total.toFixed(2)} $</strong>
+                        <strong className="text-primary fs-5">{displayTotal.toFixed(2)} $</strong>
                       </li>
                     </ul>
                   </div>
@@ -235,7 +277,7 @@ export default function Checkout() {
                       onClick={handleCreateCommande}
                       disabled={loading || !livraison.adresse}
                     >
-                      {loading ? 'Création de la commande...' : 'Continuer vers le paiement'}
+                      {loading ? 'Chargement...' : 'Continuer vers le paiement'}
                     </button>
                   </div>
                 </div>
@@ -254,20 +296,20 @@ export default function Checkout() {
           <h2 className="mb-4">Règlement</h2>
           <div className="card p-4">
             <div className="mb-3">
-              <h5>Total à payer: <strong className="text-primary">{total.toFixed(2)} $</strong></h5>
+              <h5>Total à payer: <strong className="text-primary">{displayTotal.toFixed(2)} $</strong></h5>
             </div>
             <div className="mb-3">
               <p className="text-muted">Sélectionnez votre mode de paiement</p>
             </div>
             {stripePromise ? (
               <Elements stripe={stripePromise}>
-                <CheckoutForm commandeId={commandeId} total={total} onSuccess={handlePaymentSuccess} />
+                <CheckoutForm commandeId={commandeId} total={displayTotal} onSuccess={handlePaymentSuccess} />
               </Elements>
             ) : (
               <div className="alert alert-danger">
                 <strong>Erreur de configuration Stripe</strong>
                 <p className="mb-0">
-                  La clé publique Stripe n'est pas configurée. 
+                  La clé publique Stripe n'est pas configurée.
                   Veuillez ajouter <code>VITE_STRIPE_PUBLIC_KEY</code> dans le fichier <code>.env</code> du frontend et redémarrer le serveur.
                 </p>
               </div>
