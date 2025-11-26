@@ -25,6 +25,11 @@ router.post("/", handleValidation, async (req, res) => {
         model: "gpt-oss",
         prompt: message,
         stream: false, // JSON
+        temperature: 0.1,
+        top_k: 45,
+        top_p: 0.92,
+        max_tokens: 150,
+        repetition_penalty: 1.1,
       }),
     });
 

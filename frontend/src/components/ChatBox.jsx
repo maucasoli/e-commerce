@@ -21,14 +21,14 @@ export default function ChatBox() {
     setMessages((prev) => [...prev, { from: "user", text: trimmedInput }]);
     setInput("");
 
-    // Chargement
-    const loadingMessage = { from: "ai", text: "Chargement..." };
+    // Thinking
+    const loadingMessage = { from: "ai", text: "Thinking..." };
     setMessages((prev) => [...prev, loadingMessage]);
 
     try {
       const { reply } = await sendMessageAPI(trimmedInput);
 
-      // Remplacer le message de chargement
+      // Remplacer le message de thinking
       setMessages((prev) =>
         prev.map((m) =>
           m === loadingMessage ? { from: "ai", text: reply } : m

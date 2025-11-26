@@ -18,15 +18,22 @@ export default function AccessList() {
     }, [urlCode]);
 
     const handleSearch = async (searchCode) => {
-        if (!searchCode) return;
+        if (!searchCode || !searchCode.trim()) return;
+        const trimmedCode = searchCode.trim();
         setLoading(true);
         setError("");
         setListe(null);
         try {
-            const data = await getListeByCode(searchCode);
-            setListe(data);
+            const data = await getListeByCode(trimmedCode);
+            if (data && data.liste) {
+                setListe(data);
+            } else {
+                setError("Liste introuvable.");
+            }
         } catch (e) {
-            setError("Liste introuvable ou erreur serveur.");
+            const errorMessage = e?.response?.data?.message || e?.message || "Liste introuvable ou erreur serveur.";
+            setError(errorMessage);
+            console.error("Erreur lors de la récupération de la liste:", e);
         } finally {
             setLoading(false);
         }

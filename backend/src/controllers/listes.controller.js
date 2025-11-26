@@ -54,28 +54,60 @@ export const createListe = async (req, res) => {
 export const getListeByCode = async (req, res) => {
   const { code } = req.params;
 
+  if (!code || !code.trim()) {
+    return res.status(400).json({ message: "Code de liste requis" });
+  }
+
   try {
+    const trimmedCode = code.trim();
     const [liste] = await db.query(
       `SELECT id, nom, proprietaire_id, code_partage, date_creation 
        FROM listes_cadeaux WHERE code_partage = ?`,
-      [code]
+      [trimmedCode]
     );
 
     if (liste.length === 0)
       return res.status(404).json({ message: "Liste introuvable" });
 
-    const [items] = await db.query(
-      `SELECT li.id, li.ouvrage_id, li.quantite_souhaitee, li.quantite_achetee, o.titre, o.auteur, o.prix
-       FROM liste_items li
-       JOIN ouvrages o ON li.ouvrage_id = o.id
-       WHERE li.liste_id = ?`,
-      [liste[0].id]
-    );
+    // Tente d'abord avec quantite_achetee, sinon utilise 0
+    let items;
+    try {
+      const [itemsResult] = await db.query(
+        `SELECT li.id, li.ouvrage_id, li.quantite_souhaitee, 
+                COALESCE(li.quantite_achetee, 0) AS quantite_achetee, 
+                o.titre, o.auteur, o.prix
+         FROM liste_items li
+         JOIN ouvrages o ON li.ouvrage_id = o.id
+         WHERE li.liste_id = ?`,
+        [liste[0].id]
+      );
+      items = itemsResult;
+    } catch (colError) {
+      // Si la colonne n'existe pas, utilise une requête sans quantite_achetee
+      if (colError.code === 'ER_BAD_FIELD_ERROR' || colError.message?.includes('quantite_achetee')) {
+        const [itemsResult] = await db.query(
+          `SELECT li.id, li.ouvrage_id, li.quantite_souhaitee, 
+                  0 AS quantite_achetee, 
+                  o.titre, o.auteur, o.prix
+           FROM liste_items li
+           JOIN ouvrages o ON li.ouvrage_id = o.id
+           WHERE li.liste_id = ?`,
+          [liste[0].id]
+        );
+        items = itemsResult;
+      } else {
+        throw colError;
+      }
+    }
 
     res.json({ liste: liste[0], items });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Erreur serveur" });
+    console.error("Erreur getListeByCode:", err);
+    console.error("Stack trace:", err.stack);
+    res.status(500).json({ 
+      message: "Erreur serveur",
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
   }
 };
 
@@ -123,11 +155,20 @@ export const acheterDepuisListe = async (req, res) => {
       );
 
       // Mettre à jour la quantité achetée dans la liste
-      await db.query(
-        `UPDATE liste_items SET quantite_achetee = quantite_achetee + ? 
-         WHERE liste_id = ? AND ouvrage_id = ?`,
-        [item.quantite_souhaitee, listeId, item.ouvrage_id]
-      );
+      try {
+        await db.query(
+          `UPDATE liste_items SET quantite_achetee = quantite_achetee + ? 
+           WHERE liste_id = ? AND ouvrage_id = ?`,
+          [item.quantite_souhaitee, listeId, item.ouvrage_id]
+        );
+      } catch (updateError) {
+        // Si la colonne n'existe pas, on l'ignore (la fonctionnalité fonctionnera quand même)
+        if (updateError.code === 'ER_BAD_FIELD_ERROR' || updateError.message?.includes('quantite_achetee')) {
+          console.warn('Colonne quantite_achetee non trouvée. Exécutez le script add_quantite_achetee.sql pour activer cette fonctionnalité.');
+        } else {
+          throw updateError;
+        }
+      }
     }
 
     // Mettre à jour total commande

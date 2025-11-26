@@ -20,8 +20,8 @@ const handleValidation = (req, res, next) => {
 // Créer une liste et ajouter des items
 router.post("/", verifyToken, createListeValidator, handleValidation, createListe);
 
-// Consulter une liste par code
-router.get("/:code", verifyToken, getListeByCode);
+// Consulter une liste par code (publique - accessible avec le code de partage)
+router.get("/:code", getListeByCode);
 
 // Acheter directement depuis une liste
 router.post("/:code", 

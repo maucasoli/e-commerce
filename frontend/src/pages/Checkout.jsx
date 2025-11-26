@@ -105,10 +105,10 @@ function CheckoutForm({ commandeId, total, onSuccess }) {
         {loading ? 'Traitement en cours...' : `Payer ${total.toFixed(2)} $`}
       </button>
       <p className="text-muted mt-3 small">
-        <strong>Card test (succès):</strong> Utilisez la carte 4242 4242 4242 4242, n'importe quelle date future, n'importe quel CVC
+        <strong>Test Succès:</strong> 4242 4242 4242 4242, n'importe quelle date future, n'importe quel CVC
       </p>
       <p className="text-muted mt-3 small">
-        <strong>Card test (refusé):</strong> Utilisez la carte 4000 0000 0000 0002
+        <strong>Test Refusé:</strong> 4000 0000 0000 0002
       </p>
     </form>
   )

@@ -136,6 +136,7 @@ CREATE TABLE `liste_items` (
   `liste_id` int(11) NOT NULL,
   `ouvrage_id` int(11) NOT NULL,
   `quantite_souhaitee` int(11) NOT NULL DEFAULT 1 CHECK (`quantite_souhaitee` > 0),
+  `quantite_achetee` int(11) NOT NULL DEFAULT 0 CHECK (`quantite_achetee` >= 0),
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
