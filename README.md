@@ -59,8 +59,8 @@ Avant de commencer, assurez-vous d'avoir installé :
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/GuyotJean/LivreGourmand.git
-cd LivreGourmand
+git clone https://github.com/maucasoli/e-commerce.git
+cd e-commerce
 ```
 
 ### 2. Configuration de la base de données
